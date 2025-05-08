@@ -1,4 +1,4 @@
-# InveSTORE
+# Inventory System Inventlix
 
 An inventory management system designed to help businesses efficiently manage and track inventory. The app provides basic CRUD functionality for managing inventory items and features a user-friendly interface built with React and Django.
 
