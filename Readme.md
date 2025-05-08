@@ -1,14 +1,10 @@
 # InveSTORE
 
-An inventory management system that helps businesses manage their inventory.
+An inventory management system designed to help businesses efficiently manage and track inventory. The app provides basic CRUD functionality for managing inventory items and features a user-friendly interface built with React and Django.
 
-## Goal
+## Setup Instructions
 
-I created this app to assist my family in our business by tracking and monitoring the levels of stock of items in the store. This way, they do not need to strain their minds to remember which items need restocking, and it prevents them from repeatedly writing long lists of items.
-
-## Installation
-
-#### Backend Directory:
+#### Backend Setup (Django)
 
 1. **Create Virtual Environment:**
 
@@ -19,7 +15,7 @@ I created this app to assist my family in our business by tracking and monitorin
 2. **Activate Virtual Environment:**
 
    ```shell
-   . .venv/bin/activate
+   .\.venv\Scripts\activate
    ```
 
 3. **Install Requirements:**
@@ -30,11 +26,11 @@ I created this app to assist my family in our business by tracking and monitorin
 
 4. **Database Setup:**
 
-   - Insert your database in the project directory.
+   - Set up your database (SQLite, PostgreSQL, or MySQL) and place it in the project directory if required.
 
 5. **Configure Database in Project Directory Settings:**
 
-   - Navigate to the project directory settings and configure your database settings.
+   - Open settings.py and configure your database settings accordingly.
 
 6. **Environment Variables:**
 
@@ -42,8 +38,8 @@ I created this app to assist my family in our business by tracking and monitorin
 
    ```
    SECRET_KEY=your_own_secret_key
-   DEBUG=your_own
-   ORIGINS=http://your_own_origins
+   DEBUG=True
+   ALLOWED_HOSTS=127.0.0.1, localhost
    ```
 
 7. **Run Migrations:**
@@ -63,7 +59,7 @@ I created this app to assist my family in our business by tracking and monitorin
    python manage.py runserver
    ```
 
-#### Frontend Directory:
+#### Frontend Setup (React)
 
 1. **Install Dependencies:**
 
@@ -77,10 +73,36 @@ I created this app to assist my family in our business by tracking and monitorin
 - Insert the API base endpoint in the `.env` file as follows:
 
   ```
-  VITE_REACT_BASE_URL='http://your-api-base-url.com'
+  VITE_REACT_BASE_URL='http://localhost:8000/api'
   ```
 
 3. **Run the Client:**
    ```shell
    npm run dev
    ```
+
+## Features Implemented
+
+### Core Features:
+
+Create: Add new inventory items with details like product name, SKU, quantity, price, and category.
+
+Read: View a list of all inventory items.
+
+Update: Edit details of existing inventory items.
+
+Delete: Remove inventory items from the system.
+
+### Additional Features:
+
+Product Search/Filtering: Allows users to search for products by name, SKU, or category.
+
+Pagination: Display inventory items across multiple pages for better navigation.
+
+Admin Login/Authentication: Secure login for admin users to manage inventory items.
+
+Image Upload: Ability to upload images for each product.
+
+Stock Level Warnings: Notification for low stock items to ensure timely restocking.
+
+Responsive UI: Mobile-friendly design for better accessibility on smartphones and tablets.
