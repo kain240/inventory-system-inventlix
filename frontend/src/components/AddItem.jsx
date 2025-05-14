@@ -33,15 +33,10 @@ const AddItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Fixed: Changed from 'api/inventory/' to 'api/inventory/product/' for consistency
-      // Or if your backend expects 'inventory/', then remove 'api/' prefix
-      const response = await axiosInstance.post('api/inventory/product/', values);
+      const response = await axiosInstance.post('api/inventory/', values);
       console.log(response);
-      enqueueSnackbar('Item Added!', {
-        variant: 'success',
-      });
+      enqueueSnackbar('Item Added!', { variant: 'success' });
       setValues({
         product_name: '',
         price: initialPrice,
@@ -51,9 +46,8 @@ const AddItem = () => {
       navigate('/');
     } catch (error) {
       enqueueSnackbar('Add: Something went wrong!', { variant: 'error' });
-      console.log(error);
+      console.log('AddItem error:', error.response?.data || error.message);
     }
-
     console.log('Form submitted!');
   };
 
@@ -70,13 +64,13 @@ const AddItem = () => {
                 New Item
               </Text>
               <VStack p={10} spacing={8}>
-                <FormControl id="productName" isRequired>
+                <FormControl id="product_name" isRequired>
                   <FormLabel fontSize="18px">Product Name</FormLabel>
                   <Input
                       borderColor="gray.400"
                       type="text"
                       value={values.product_name}
-                      name="productName"
+                      name="product_name"
                       size="lg"
                       onChange={(value) =>
                           setValues({ ...values, product_name: value.target.value })
@@ -89,7 +83,9 @@ const AddItem = () => {
                   <NumberInput
                       borderColor="gray.400"
                       value={values.price}
-                      onChange={(value) => setValues({ ...values, price: value })}
+                      onChange={(valueStr) =>
+                          setValues({ ...values, price: valueStr })
+                      }
                       min={0}
                       step={0.01}
                       defaultValue={0.0}
@@ -112,8 +108,8 @@ const AddItem = () => {
                       min={0}
                       name="quantity"
                       size="lg"
-                      onChange={(value) =>
-                          setValues({ ...values, quantity: value })
+                      onChange={(valueStr) =>
+                          setValues({ ...values, quantity: valueStr })
                       }
                   >
                     <NumberInputField />
@@ -144,12 +140,7 @@ const AddItem = () => {
                   <Button size="md" type="submit" colorScheme="green">
                     Save
                   </Button>
-                  <Button
-                      size="md"
-                      p={3}
-                      colorScheme="red"
-                      onClick={handleCancel}
-                  >
+                  <Button size="md" p={3} colorScheme="red" onClick={handleCancel}>
                     Cancel
                   </Button>
                 </HStack>

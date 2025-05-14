@@ -49,9 +49,9 @@ const Login = () => {
         <Flex>
           <Box color="gray.800">
             <Box maxW="35px" mb="-10px">
-              <img src={house} />
+              {/*<img src={house} />*/}
             </Box>
-            <Heading fontSize="50px">InveSTORE</Heading>
+            <Heading fontSize="50px">MySTORE</Heading>
           </Box>
         </Flex>
 

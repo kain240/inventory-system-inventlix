@@ -20,9 +20,9 @@ const Header = () => {
       <NavLink to="/">
         <Box color="gray.700">
           <Box maxW="20px" mb="-5px">
-            <img src={house} />
+            {/*<img src={house} />*/}
           </Box>
-          <Heading fontSize="30px">InveSTORE</Heading>
+          <Heading fontSize="30px">MySTORE</Heading>
         </Box>
       </NavLink>
       <Spacer />
