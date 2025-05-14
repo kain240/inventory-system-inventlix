@@ -48,7 +48,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get('inventory/');
+        const response = await axiosInstance.get('api/inventory/');
         setItem(response.data.products);
         setTotal(response.data.total_items);
 

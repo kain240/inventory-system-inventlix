@@ -35,13 +35,14 @@ const AddItem = () => {
     e.preventDefault();
 
     try {
-      const response = await axiosInstance.post('inventory/', values);
+      // Fixed: Changed from 'api/inventory/' to 'api/inventory/product/' for consistency
+      // Or if your backend expects 'inventory/', then remove 'api/' prefix
+      const response = await axiosInstance.post('api/inventory/product/', values);
       console.log(response);
       enqueueSnackbar('Item Added!', {
         variant: 'success',
       });
       setValues({
-        ...values,
         product_name: '',
         price: initialPrice,
         quantity: initialQuantity,
@@ -61,100 +62,102 @@ const AddItem = () => {
   };
 
   return (
-    <Box p="20px" mx="auto">
-      <Box bg="whiteAlpha.700" maxW="100%" borderRadius={5}>
-        <Box maxW="xl" bg="whiteAlpha.500" p="10px" borderRadius={5}>
-          <form onSubmit={handleSubmit}>
-            <Text fontSize="30px" as="b" padding={10}>
-              New Item
-            </Text>
-            <VStack p={10} spacing={8}>
-              <FormControl id="productName">
-                <FormLabel fontSize="18px">Product Name</FormLabel>
-                <Input
-                  borderColor="gray.400"
-                  type="text"
-                  value={values.product_name}
-                  name="productName"
-                  size="lg"
-                  onChange={(value) =>
-                    setValues({ ...values, product_name: value.target.value })
-                  }
-                />
-              </FormControl>
-              <FormControl id="price">
-                <FormLabel fontSize="18px">Price</FormLabel>
-                <NumberInput
-                  borderColor="gray.400"
-                  value={values.price}
-                  onChange={(value) => setValues({ ...values, price: value })}
-                  min={0}
-                  step={0.01}
-                  defaultValue={0.0}
-                  precision={2}
-                  size="lg"
-                  name="price"
+      <Box p="20px" mx="auto">
+        <Box bg="whiteAlpha.700" maxW="100%" borderRadius={5}>
+          <Box maxW="xl" bg="whiteAlpha.500" p="10px" borderRadius={5}>
+            <form onSubmit={handleSubmit}>
+              <Text fontSize="30px" as="b" padding={10}>
+                New Item
+              </Text>
+              <VStack p={10} spacing={8}>
+                <FormControl id="productName" isRequired>
+                  <FormLabel fontSize="18px">Product Name</FormLabel>
+                  <Input
+                      borderColor="gray.400"
+                      type="text"
+                      value={values.product_name}
+                      name="productName"
+                      size="lg"
+                      onChange={(value) =>
+                          setValues({ ...values, product_name: value.target.value })
+                      }
+                      placeholder="Enter product name"
+                  />
+                </FormControl>
+                <FormControl id="price" isRequired>
+                  <FormLabel fontSize="18px">Price</FormLabel>
+                  <NumberInput
+                      borderColor="gray.400"
+                      value={values.price}
+                      onChange={(value) => setValues({ ...values, price: value })}
+                      min={0}
+                      step={0.01}
+                      defaultValue={0.0}
+                      precision={2}
+                      size="lg"
+                      name="price"
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </FormControl>
+                <FormControl id="quantity" isRequired>
+                  <FormLabel fontSize="18px">Quantity</FormLabel>
+                  <NumberInput
+                      borderColor="gray.400"
+                      value={values.quantity}
+                      min={0}
+                      name="quantity"
+                      size="lg"
+                      onChange={(value) =>
+                          setValues({ ...values, quantity: value })
+                      }
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </FormControl>
+                <FormControl id="description">
+                  <FormLabel fontSize="18px">Description</FormLabel>
+                  <Textarea
+                      borderColor="gray.400"
+                      name="description"
+                      value={values.description}
+                      onChange={(value) =>
+                          setValues({ ...values, description: value.target.value })
+                      }
+                      placeholder="Enter product description"
+                  />
+                </FormControl>
+                <HStack
+                    display="flex"
+                    justifyContent="flex-end"
+                    width="100%"
+                    spacing={5}
                 >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
-              <FormControl id="quantity">
-                <FormLabel fontSize="18px">Quantity</FormLabel>
-                <NumberInput
-                  borderColor="gray.400"
-                  value={values.quantity}
-                  min={0}
-                  name="quantity"
-                  size="lg"
-                  onChange={(value) =>
-                    setValues({ ...values, quantity: value })
-                  }
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
-              <FormControl id="description">
-                <FormLabel fontSize="18px">Description</FormLabel>
-                <Textarea
-                  borderColor="gray.400"
-                  name="description"
-                  value={values.description}
-                  onChange={(value) =>
-                    setValues({ ...values, description: value.target.value })
-                  }
-                />
-              </FormControl>
-              <HStack
-                display="flex"
-                justifyContent="flex-end"
-                width="100%"
-                spacing={5}
-              >
-                <Button size="md" type="submit" colorScheme="green">
-                  Save
-                </Button>
-                <Button
-                  size="md"
-                  p={3}
-                  colorScheme="red"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </Button>
-              </HStack>
-            </VStack>
-          </form>
+                  <Button size="md" type="submit" colorScheme="green">
+                    Save
+                  </Button>
+                  <Button
+                      size="md"
+                      p={3}
+                      colorScheme="red"
+                      onClick={handleCancel}
+                  >
+                    Cancel
+                  </Button>
+                </HStack>
+              </VStack>
+            </form>
+          </Box>
         </Box>
       </Box>
-    </Box>
   );
 };
 

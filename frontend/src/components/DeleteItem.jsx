@@ -2,11 +2,16 @@ import axiosInstance from '../services/apiClient';
 
 const DeleteItem = async (id) => {
   try {
-    await axiosInstance.delete(`inventory/product/${id}/`);
-    return true;
+    await axiosInstance.delete(`api/inventory/product/${id}/`);
+    return { success: true, error: null };
   } catch (error) {
-    console.log('Error occurred while deleting:', error);
-    return false;
+    console.error('Error occurred while deleting:', error);
+
+    // Return more detailed error information
+    return {
+      success: false,
+      error: error.response?.data?.message || error.message || 'Failed to delete item'
+    };
   }
 };
 

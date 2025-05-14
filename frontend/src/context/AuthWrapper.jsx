@@ -63,10 +63,10 @@ export const AuthWrapper = ({ children }) => {
     }
 
     try {
-      console.log('Attempting login to:', axiosLog.defaults.baseURL + 'token/');
+      console.log('Attempting login to:', axiosLog.defaults.baseURL + 'api/token/');
 
-      // Make login request
-      const res = await axiosLog.post('token/', {
+      // Make login request - Changed from 'token/' to 'api/token/'
+      const res = await axiosLog.post('api/token/', {
         username: username,
         password: password,
       });
